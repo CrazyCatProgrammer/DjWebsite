@@ -2,6 +2,11 @@
 layout: default
 title: Blog
 description: Avenco blog features productivity, tips, inspiration and strategies for massive profits. Find out how to set up a successful blog or how to make yours even better!
+pagination:
+  enabled: true
+  collection: "posts"
+  per_page: 6
+  permalink: "/blog/page/:num/"
 ---
 <div class="container">
   <div class="row">
@@ -20,12 +25,44 @@ description: Avenco blog features productivity, tips, inspiration and strategies
 
 <div class="container animate">
   <div class="row">
-    {% if site.posts.size > 0 %}
-      {% for post in paginator.posts offset:0 %}
+    {% if paginator.posts.size > 0 %}
+      {% for post in paginator.posts %}
         {% include article-content.html %}
       {% endfor %}
     {% endif %}
   </div>
 </div>
 
-{% include pagination.html %}
+{% if paginator.total_pages > 1 %}
+<div class="container">
+  <div class="row">
+    <div class="col col-12">
+      <div class="pagination" style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | relative_url }}" class="pagination__prev">
+            <i class="ion ion-md-arrow-back"></i> Previous
+          </a>
+        {% else %}
+          <span style="visibility: hidden;">
+            <i class="ion ion-md-arrow-back"></i> Previous
+          </span>
+        {% endif %}
+
+        <span class="pagination__info">
+          Page {{ paginator.page }} of {{ paginator.total_pages }}
+        </span>
+
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | relative_url }}" class="pagination__next">
+            Next <i class="ion ion-md-arrow-forward"></i>
+          </a>
+        {% else %}
+          <span style="visibility: hidden;">
+            Next <i class="ion ion-md-arrow-forward"></i>
+          </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}

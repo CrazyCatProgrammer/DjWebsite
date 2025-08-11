@@ -2,38 +2,86 @@
 layout: default
 title: My works
 description:
+pagination:
+  enabled: true
+  collection: "projects"
+  per_page: 6
+  permalink: "/projects/page/:num/"
 ---
-<div class="container">
-  <div class="page-head">
-    <h1 class="page-title">{% if page.title %}{{ page.title }}{% else %}{{ site.data.settings.projects__settings.projects__title }}{% endif %}</h1>
-    {% if page.description %}
-      <p class="page-description">{{ page.description }}</p>
-    {% else site.data.settings.projects__settings.projects__description %}
-      <p class="page-description">{{ site.data.settings.projects__settings.projects__description }}</p>
-    {% endif %}
-  </div>
-</div>
 
 <div class="container animate">
   <div class="row">
-    {% for project in site.projects reversed %}
-      <article class="project col col-4 col-d-6 col-t-12">
-        <div class="project__content">
-          <a href="{{ project.url }}" class="project__image">
-            <img class="lazy" data-src="{{ project.image }}" alt="{{ project.title }}">
-          </a>
-          <div class="project__info">
-            <div class="project__info-wrap">
-              <h4 class="project__title">{{ project.title }}</h4>
-            </div>
-            <div class="project__info-wrap">
-              {% if project.subtitle %}
-                <div class="project__subtitle">{{ project.subtitle }} –</div>
-              {% endif %}
-            </div>
+    {% for project in paginator.posts %}
+    <article class="project col col-4 col-d-6 col-t-12">
+      <div class="project__content">
+        <a href="{{ project.url }}" class="project__image">
+          <img
+            class="lazy"
+            data-src="{{ project.image }}"
+            alt="{{ project.title }}"
+          />
+        </a>
+        <div class="project__info">
+          <div class="project__info-wrap">
+            <h4 class="project__title">{{ project.title }}</h4>
+          </div>
+          <div class="project__info-wrap">
+            {% if project.subtitle %}
+            <div class="project__subtitle">{{ project.subtitle }} –</div>
+            {% endif %}
           </div>
         </div>
-      </article>
+      </div>
+    </article>
     {% endfor %}
   </div>
 </div>
+
+<!-- Pagination navigation remains the same -->
+{% if paginator.total_pages > 1 %}
+<div class="container">
+  <div class="row">
+    <div class="col col-12">
+      <div
+        class="pagination"
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 20px;
+        "
+      >
+        {% if paginator.previous_page %}
+        <a
+          href="{{ paginator.previous_page_path | relative_url }}"
+          class="pagination__prev"
+        >
+          <i class="ion ion-md-arrow-back"></i> Previous
+        </a>
+        {% else %}
+        <span style="visibility: hidden">
+          <i class="ion ion-md-arrow-back"></i> Previous
+        </span>
+        {% endif %}
+
+        <span class="pagination__info">
+          Page {{ paginator.page }} of {{ paginator.total_pages }}
+        </span>
+
+        {% if paginator.next_page %}
+        <a
+          href="{{ paginator.next_page_path | relative_url }}"
+          class="pagination__next"
+        >
+          Next <i class="ion ion-md-arrow-forward"></i>
+        </a>
+        {% else %}
+        <span style="visibility: hidden">
+          Next <i class="ion ion-md-arrow-forward"></i>
+        </span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
