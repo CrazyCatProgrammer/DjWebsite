@@ -1,0 +1,145 @@
+---
+layout: default
+---
+
+<div class="container">
+  <div class="row">
+    <div class="col col-8 push-2 col-t-12 push-t-0">
+      
+      <!-- Track Header -->
+      <div class="track-header" style="text-align: center; margin: 40px 0;">
+        {% if page.image %}
+          <div class="track-artwork" style="margin-bottom: 30px;">
+            <img src="{{ page.image }}" alt="{{ page.title }}" style="max-width: 400px; width: 100%; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.3);">
+          </div>
+        {% endif %}
+        
+        <h1 class="track-title" style="font-size: 2.5em; margin-bottom: 10px; color: #120f3e;">{{ page.title }}</h1>
+        
+        {% if page.artist %}
+          <h2 class="track-artist" style="font-size: 1.5em; color: #666; margin-bottom: 20px;">by {{ page.artist }}</h2>
+        {% endif %}
+        
+        {% if page.album %}
+          <p class="track-album" style="font-size: 1.2em; color: #888; margin-bottom: 20px;">from {{ page.album }}</p>
+        {% endif %}
+      </div>
+
+      <!-- Audio Player -->
+      {% if page.audio_file %}
+      <div class="audio-player" style="background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 30px 0;">
+        <audio controls style="width: 100%; height: 60px;">
+          <source src="{{ page.audio_file }}" type="audio/mpeg">
+          <source src="{{ page.audio_file }}" type="audio/wav">
+          Your browser does not support the audio element.
+        </audio>
+      </div>
+      {% endif %}
+
+      <!-- Track Info -->
+      {% if page.track_info %}
+      <div class="track-info" style="background: #120f3e; color: white; padding: 30px; border-radius: 12px; margin: 30px 0;">
+        <h3 style="margin-bottom: 20px; color: white;">Track Information</h3>
+        <div class="info-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+          
+          {% if page.track_info.genre %}
+            <div class="info-item">
+              <strong>Genre:</strong> {{ page.track_info.genre }}
+            </div>
+          {% endif %}
+          
+          {% if page.track_info.bpm %}
+            <div class="info-item">
+              <strong>BPM:</strong> {{ page.track_info.bpm }}
+            </div>
+          {% endif %}
+          
+          {% if page.track_info.key %}
+            <div class="info-item">
+              <strong>Key:</strong> {{ page.track_info.key }}
+            </div>
+          {% endif %}
+          
+          {% if page.track_info.duration %}
+            <div class="info-item">
+              <strong>Duration:</strong> {{ page.track_info.duration }}
+            </div>
+          {% endif %}
+          
+          {% if page.track_info.label %}
+            <div class="info-item">
+              <strong>Label:</strong> {{ page.track_info.label }}
+            </div>
+          {% endif %}
+          
+          <div class="info-item">
+            <strong>Release Date:</strong> {{ page.date | date: "%B %d, %Y" }}
+          </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Streaming Links -->
+      {% if page.streaming %}
+      <div class="streaming-links" style="margin: 30px 0;">
+        <h3 style="text-align: center; margin-bottom: 20px; color: #120f3e;">Listen & Download</h3>
+        <div class="streaming-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; text-align: center;">
+          
+          {% if page.streaming.soundcloud %}
+            <a href="{{ page.streaming.soundcloud }}" target="_blank" style="background: #ff5500; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              SoundCloud
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.spotify %}
+            <a href="{{ page.streaming.spotify }}" target="_blank" style="background: #1db954; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              Spotify
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.apple_music %}
+            <a href="{{ page.streaming.apple_music }}" target="_blank" style="background: #fc3c44; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              Apple Music
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.youtube %}
+            <a href="{{ page.streaming.youtube }}" target="_blank" style="background: #ff0000; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              YouTube
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.bandcamp %}
+            <a href="{{ page.streaming.bandcamp }}" target="_blank" style="background: #629aa0; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              Bandcamp
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.beatport %}
+            <a href="{{ page.streaming.beatport }}" target="_blank" style="background: #94f159; color: black; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              Beatport
+            </a>
+          {% endif %}
+          
+          {% if page.streaming.download %}
+            <a href="{{ page.streaming.download }}" target="_blank" style="background: #120f3e; color: white; padding: 15px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: all 0.3s ease;">
+              Free Download
+            </a>
+          {% endif %}
+          
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Track Description -->
+      {% if page.body and page.body != "" %}
+      <div class="track-description" style="margin: 40px 0; line-height: 1.6;">
+        <h3 style="margin-bottom: 20px; color: #120f3e;">About This Track</h3>
+        {{ content }}
+      </div>
+      {% endif %}
+
+    </div>
+  </div>
+</div>

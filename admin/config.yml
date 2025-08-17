@@ -1,0 +1,113 @@
+backend:
+  name: github
+  repo: CrazyCatProgrammer/DjWebsite
+  branch: Update-Info
+
+# Uncomment for local development with proxy
+# local_backend: true
+
+# For production, use git-gateway instead:
+# backend:
+#   name: git-gateway
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  # Blog Posts
+  - name: "posts"
+    label: "Blog Posts"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "markdown"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "post"}
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", allow_add: true, required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Music Tracks
+  - name: "tracks"
+    label: "Music Tracks"
+    folder: "_tracks"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: false
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "track"}
+      - {label: "Track Title", name: "title", widget: "string", required: true}
+      - {label: "Artist Name", name: "artist", widget: "string", required: true}
+      - {label: "Album/EP Name", name: "album", widget: "string", required: false}
+      - {label: "Release Date", name: "date", widget: "datetime"}
+      - {label: "Album Artwork", name: "image", widget: "image", required: false}
+      - {label: "Audio File", name: "audio_file", widget: "file", required: false}
+      - {label: "Genre", name: "genre", widget: "select", options: ["House", "Techno", "Trance", "Progressive House", "Deep House", "Tech House", "Minimal", "Drum & Bass", "Dubstep", "Ambient", "Other"], required: false}
+      - {label: "BPM", name: "bpm", widget: "number", value_type: "int", min: 60, max: 200, required: false}
+      - {label: "Key", name: "key", widget: "select", options: ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B", "Cm", "C#m", "Dm", "D#m", "Em", "Fm", "F#m", "Gm", "G#m", "Am", "A#m", "Bm"], required: false}
+      - {label: "Duration", name: "duration", widget: "string", pattern: ["^[0-9]+:[0-9]{2}$", "Format: MM:SS"], required: false}
+      - {label: "Label/Record Label", name: "label", widget: "string", required: false}
+      - label: "Streaming Links"
+        name: "streaming"
+        widget: "object"
+        required: false
+        fields:
+          - {label: "SoundCloud URL", name: "soundcloud", widget: "string", required: false}
+          - {label: "Spotify URL", name: "spotify", widget: "string", required: false}
+          - {label: "Apple Music URL", name: "apple_music", widget: "string", required: false}
+          - {label: "YouTube URL", name: "youtube", widget: "string", required: false}
+          - {label: "Bandcamp URL", name: "bandcamp", widget: "string", required: false}
+          - {label: "Beatport URL", name: "beatport", widget: "string", required: false}
+          - {label: "Free Download URL", name: "download", widget: "string", required: false}
+      - {label: "Track Description", name: "body", widget: "markdown", required: false}
+
+  # Projects
+  - name: "projects"
+    label: "Projects"
+    folder: "_projects"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Layout", name: "layout", widget: "hidden", default: "project"}
+      - {label: "Project Title", name: "title", widget: "string", required: true}
+      - {label: "Subtitle", name: "subtitle", widget: "string", required: false}
+      - {label: "Description", name: "description", widget: "text", required: false}
+      - {label: "Date", name: "date", widget: "datetime"}
+      - {label: "Project Image", name: "image", widget: "image", required: false}
+      - {label: "Project URL", name: "url", widget: "string", required: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+  # Pages
+  - name: "pages"
+    label: "Site Pages"
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "_pages/about.md"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "page"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Permalink", name: "permalink", widget: "hidden", default: "/about/"}
+          - {label: "Body", name: "body", widget: "markdown"}
+      
+      - label: "Contact Page"
+        name: "contact"
+        file: "_pages/contact.html"
+        fields:
+          - {label: "Layout", name: "layout", widget: "hidden", default: "page"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Permalink", name: "permalink", widget: "hidden", default: "/contact/"}
+          - {label: "Body", name: "body", widget: "markdown"}

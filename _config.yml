@@ -28,6 +28,9 @@ pagination:
 collections:
   pages:
     output: true
+  tracks:
+    output: true
+    permalink: /:collection/:name/
     permalink: /:name
   posts:
     output: true
